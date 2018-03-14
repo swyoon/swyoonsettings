@@ -9,6 +9,13 @@
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
+# Set list of themes to load
+# Setting this variable when ZSH_THEME=random
+# cause zsh load theme from this variable instead of
+# looking in ~/.oh-my-zsh/themes/
+# An empty array have no effect
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -51,7 +58,12 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+  git
+  tmux
+  catimg
+  autojump
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,13 +95,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /home/swyoon/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[[ -s /home/swyoon/.autojump/etc/profile.d/autojump.sh ]] && source /home/swyoon/.autojump/etc/profile.d/autojump.sh
-autoload -U compinit && compinit -u
+alias tmux="tmux -2"
+source /home/swyoon/cloned/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+export PATH=/home/swyoon/python-3.6.4/bin:$PATH
+export PATH=/home/swyoon/vim/bin:$PATH
+export PATH=/usr/local/cuda-9.1/bin:$PATH
 
-export PATH=$PATH:/usr/local/cuda-7.5/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64
-export CUDA_HOME=/usr/local/cuda
+export LD_LIBRARY_PATH=/home/swyoon/python-3.6.4/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64:$LD_LIBRARY_PATH
+
