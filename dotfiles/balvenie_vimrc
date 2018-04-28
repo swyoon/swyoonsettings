@@ -1,0 +1,97 @@
+set nocompatible
+filetype off
+
+" EnCoding
+set enc=UTF-8
+set fileencodings=UTF-8
+set fencs=utf8,euc-kr,cp949,cp932,euc-jp,shift-jis,big5,latin1,ucs-2le
+set visualbell
+set backspace=indent,eol,start
+set statusline=%h%F%m%r%=[%l:%c(%p%%)]
+set tabstop=4
+set shiftwidth=4
+set cindent
+set autoindent
+set smartindent
+"filetype indent on
+set history=15
+set ruler
+set showcmd
+set nobackup
+set foldmethod=marker
+set hlsearch
+set background=dark
+set number
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+"nnoremap <silent> <special> <F2> :NERDTreeToggle <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> endif<CR>
+map <F2> <ESC>:NERDTree<CR>
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
+let python_highlight_all=1
+syntax on
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'The-NERD-tree'
+Plugin 'Python-Syntax'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'jnurmine/Zenburn'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+call vundle#end() 
+filetype plugin indent on
+
+"define BadWhitespace before using in a match
+highlight BadWhitespace ctermbg=red guibg=darkred
+
+let g:SimpylFold_docstring_preview=1
+
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set autoindent
+au BufNewFile,BufRead *.py set expandtab 
+au BufNewFile,BufRead *.py set colorcolumn=120 
+au BufNewFile,BufRead *.py set fileformat=unix 
+
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+
+"python with virtualenv support
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
+
+colors zenburn
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
+
+
