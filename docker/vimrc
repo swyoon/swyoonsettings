@@ -56,12 +56,6 @@ map <F8> <ESC>:new<CR>
 map <F9> <ESC>:close<CR>
 map <C-TAB> <C-p>
 
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
 "ctags
 map <C-}> :exec("tag /".expand("<cword>"))<CR>  
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>  
@@ -84,21 +78,17 @@ Plugin 'gmarik/vundle'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'Lokaltog/vim-easymotion'
 "Plugin 'vim-syntastic/syntastic'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'tpope/vim-rails.git'
 " vim-scripts repos
 Plugin 'L9'
 Plugin 'FuzzyFinder'
 Plugin 'jnurmine/Zenburn'
 " non-GitHub repos
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'vim-ruby/vim-ruby'
 Plugin 'The-NERD-tree'
 
 Plugin 'Source-Explorer-srcexpl.vim'
-Plugin 'pyflakes'
+" Plugin 'pyflakes'
 Plugin 'Python-Syntax'
 Bundle 'Valloric/YouCompleteMe'
 " Plugin 'AutoComplPop'
@@ -142,3 +132,12 @@ set rtp+=~/.fzf
 nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
+nmap <Leader>g :GFiles<CR>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
