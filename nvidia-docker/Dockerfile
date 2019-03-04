@@ -9,6 +9,14 @@ RUN apt-get update && apt-get install -y tmux zsh vim-nox build-essential cmake 
     wget bzip2 locales fonts-liberation git sudo
 RUN apt-get install -y cuda-compiler-9.1
 RUN useradd -m $ME -u 1001 && echo "$ME:$ME" | chpasswd && adduser $ME sudo
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen
+
+ENV LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8
+
+
 ENV CONDA_DIR=/opt/conda
 ENV MINICONDA_VERSION 4.5.4
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -24,12 +32,12 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda update --all --quiet --yes && \
     conda clean -tipsy && \
     rm -rf /root/.cache/yarn 
-RUN chown $ME:users $CONDA_DIR
-RUN conda install numpy scipy cupy tqdm pandas jupyter jupyterlab matplotlib pytest
+RUN chown -R $ME:users $CONDA_DIR
 
 # shell environment setting
 RUN chsh -s /bin/zsh
 USER $ME
+RUN conda install numpy scipy cupy tqdm pandas jupyter jupyterlab matplotlib pytest scikit-learn
 RUN mkdir /home/$ME/.vim && git clone https://github.com/VundleVim/Vundle.vim.git /home/$ME/.vim/bundle/Vundle.vim
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 ADD tmux.conf /home/$ME/.tmux.conf
