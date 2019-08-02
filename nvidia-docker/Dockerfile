@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
 
 # add custom user
 ENV ME=swyoon  
@@ -41,7 +41,7 @@ USER $ME
 # ADD condaenv.yml /home/$ME/condaenv.yml
 # RUN conda env create -f /home/$ME/condaenv.yml
 RUN cd /home/$ME && conda create --yes -n ml python=3.6 numpy scipy tqdm jupyter jupyterlab pytest scikit-learn nodejs matplotlib
-RUN /home/swyoon/.conda/envs/ml/bin/pip install cupy-cuda101 torch torchvision ipywidgets
+RUN /home/swyoon/.conda/envs/ml/bin/pip install cupy-cuda100 torch torchvision ipywidgets
 
 # install miscelleneous stuffs
 RUN mkdir /home/$ME/.vim && git clone https://github.com/VundleVim/Vundle.vim.git /home/$ME/.vim/bundle/Vundle.vim
