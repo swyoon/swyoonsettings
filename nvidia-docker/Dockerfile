@@ -1,7 +1,8 @@
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 
 # add custom user
 ENV ME=swyoon  
+ENV DEBIAN_FRONTEND=noninteractive
 
 # basic package setting
 RUN sed -i 's/archive.ubuntu.com/ftp.daumkakao.com/g' /etc/apt/sources.list
@@ -18,11 +19,11 @@ ENV LC_ALL=en_US.UTF-8 \
 
 
 ENV CONDA_DIR=/opt/conda
-ENV MINICONDA_VERSION 4.5.4
+ENV MINICONDA_VERSION 4.7.10
 ENV PATH=$CONDA_DIR/bin:$PATH
 RUN cd /tmp && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    echo "a946ea1d0c4a642ddf0c3a26a18bb16d *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
+    echo "1c945f2b3335c7b2b15130b1b2dc5cf4 *Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
     rm Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
@@ -37,23 +38,12 @@ RUN cd /tmp && \
 # shell environment setting
 RUN chsh -s /bin/zsh
 USER $ME
-RUN conda create --yes -n ml python=3.6 numpy scipy tqdm jupyter jupyterlab pytest scikit-learn nodejs
-RUN /home/swyoon/.conda/envs/ml/bin/pip install cupy-cuda90 torch torchvision ipywidgets
-# RUN conda run -n ml pip install numpy \
-#         scipy \
-#         tqdm \
-#         pandas \
-#         jupyter \
-#         jupyterlab \
-#         matplotlib \
-#         pytest \
-#         scikit-learn \
-#         cupy-cuda90 \
-#         torch \
-#         torchvision
-# RUN conda install numpy scipy tqdm pandas jupyter jupyterlab matplotlib pytest scikit-learn
-# # RUN pip install cupy-cuda90
-# ENV PATH=$CONDA_DIR/bin:$PATH
+# ADD condaenv.yml /home/$ME/condaenv.yml
+# RUN conda env create -f /home/$ME/condaenv.yml
+RUN cd /home/$ME && conda create --yes -n ml python=3.6 numpy scipy tqdm jupyter jupyterlab pytest scikit-learn nodejs matplotlib
+RUN /home/swyoon/.conda/envs/ml/bin/pip install cupy-cuda101 torch torchvision ipywidgets
+
+# install miscelleneous stuffs
 RUN mkdir /home/$ME/.vim && git clone https://github.com/VundleVim/Vundle.vim.git /home/$ME/.vim/bundle/Vundle.vim
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 ADD tmux.conf /home/$ME/.tmux.conf
@@ -62,4 +52,6 @@ ADD zshrc /home/$ME/.zshrc
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/home/$ME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ADD run_jupyter.sh /home/$ME/run_jupyter.sh
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/home/$ME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+RUN ~/.fzf/install
 CMD ["/bin/zsh"]
