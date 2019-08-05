@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 # add custom user
 ENV ME=swyoon  
@@ -6,9 +6,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # basic package setting
 RUN sed -i 's/archive.ubuntu.com/ftp.daumkakao.com/g' /etc/apt/sources.list
-RUN apt-get update && apt-get install -y tmux zsh vim-nox build-essential cmake htop iftop iotop \
-    wget bzip2 locales fonts-liberation git sudo
-# RUN apt-get install -y cuda-compiler-9.0
+RUN apt-get update && apt-get install -y tmux zsh build-essential cmake htop iftop iotop \
+    wget bzip2 locales fonts-liberation git sudo software-properties-common
+RUN add-apt-repository ppa:jonathonf/vim
+RUN apt update && apt install -y vim
 RUN useradd -m $ME -u 1001 && echo "$ME:$ME" | chpasswd && adduser $ME sudo
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
