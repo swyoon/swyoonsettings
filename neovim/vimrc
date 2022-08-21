@@ -44,6 +44,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
 
 
 " List ends here. Plugins become visible to Vim after this call.
@@ -64,3 +65,4 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 
+colo seoul256
