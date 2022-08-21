@@ -1,0 +1,66 @@
+set enc=UTF-8
+set fileencodings=UTF-8
+set fencs=utf8,euc-kr,cp949,cp932,euc-jp,shift-jis,big5,latin1,ucs-2le
+set visualbell
+set backspace=indent,eol,start
+set statusline=%h%F%m%r%=[%l:%c(%p%%)]
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set cindent
+set autoindent
+set smartindent
+"filetype indent on
+set history=15
+set ruler
+set showcmd
+set nobackup
+"set foldmethod=marker
+set foldmethod=indent
+set foldlevel=99
+set hlsearch
+set background=dark
+set number
+set visualbell
+set noswapfile
+set cursorline 
+set laststatus=2
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
+"Prevent freezing vim without tmux
+set noeb vb t_vb=
+
+syntax on
+
+
+" Plugins will be downloaded under the specified directory.
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+
+" Declare the list of plugins.
+Plug 'tpope/vim-sensible'
+Plug 'junegunn/seoul256.vim'
+Plug 'github/copilot.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+
+" fzf setting
+set rtp+=~/.fzf
+" fzf.vim setting
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>g :GFiles<CR>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+
