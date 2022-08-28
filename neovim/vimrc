@@ -45,6 +45,7 @@ Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'preservim/nerdtree'
 
 
 " List ends here. Plugins become visible to Vim after this call.
@@ -57,6 +58,8 @@ nmap = :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 nmap <Leader>g :GFiles<CR>
+
+nnoremap <silent> <special> <F2> :NERDTreeToggle <Bar> if &filetype ==# 'nerdtree' <Bar> wincmd p <Bar> endif<CR>
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
