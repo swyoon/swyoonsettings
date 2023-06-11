@@ -54,7 +54,8 @@ call plug#end()
 " fzf setting
 set rtp+=~/.fzf
 " fzf.vim setting
-nmap z :Buffers<CR>
+# nmap z :Buffers<CR>
+nmap <Leader><Leader> :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 nmap <Leader>g :GFiles<CR>
